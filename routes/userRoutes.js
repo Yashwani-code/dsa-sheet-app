@@ -27,13 +27,18 @@ router.post("/progress", auth, async (req, res) => {
 
   const user = await User.findById(req.userId);
 
-  if (!user.completedProblems.includes(problemId)) {
+  const index = user.completedProblems.indexOf(problemId);
+
+  if (index === -1) {
+    // ✅ ADD
     user.completedProblems.push(problemId);
+  } else {
+    // ✅ REMOVE (UN-CHECK)
+    user.completedProblems.splice(index, 1);
   }
 
   await user.save();
 
   res.json(user.completedProblems);
 });
-
 module.exports = router;
