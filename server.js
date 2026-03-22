@@ -6,7 +6,11 @@ require("dotenv").config();
 const app = express();
 
 // ✅ Middleware FIRST
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // allow all (quick fix)
+  })
+);
 app.use(express.json());
 
 // ✅ Routes AFTER middleware
